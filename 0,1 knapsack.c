@@ -19,17 +19,27 @@ int knapsack(int W, int wt[], int val[], int n, int K[n+1][W+1]) {
         }
     }
 
+    // Print the DP table
+    printf("\nDP Table (K[i][w]):\n");
+    for (i = 0; i <= n; i++) {
+        for (w = 0; w <= W; w++) {
+            printf("%4d", K[i][w]);
+        }
+        printf("\n");
+    }
+
     return K[n][W];
 }
 
+
 void printSelectedItems(int W, int wt[], int K[][W+1], int n) {
     int w = W;
-    printf("Selected items:\n");
+    printf("\nSelected items:\n");
 
     // Traverse the DP table to find the selected items
     for (int i = n; i > 0 && w > 0; i--) {
         if (K[i][w] != K[i-1][w]) {  // Item i is included
-            printf("Item %d (Value: %d, Weight: %d)\n", i, wt[i-1], wt[i-1]);
+            printf("Item %d (Profite: %d, Weight: %d)\n", i, wt[i-1], wt[i-1]);
             w -= wt[i-1];
         }
     }
@@ -43,7 +53,7 @@ int main() {
 
     int val[n], wt[n];
 
-    printf("Enter %d item values (space-separated):\n", n);
+    printf("Enter %d item profits (space-separated):\n", n);
     for (int i = 0; i < n; i++) {
         scanf("%d", &val[i]);
     }
@@ -60,7 +70,7 @@ int main() {
 
     // Get the maximum value that can be achieved
     int result = knapsack(W, wt, val, n, K);
-    printf("Maximum value in Knapsack = %d\n", result);
+    printf("\nMaximum value/profit in Knapsack = %d\n", result);
 
     // Print the selected items
     printSelectedItems(W, wt, K, n);
